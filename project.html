@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Resume Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <h1><i class="fas fa-robot"></i> AI Resume Generator</h1>
+            <p>Create professional resumes with AI-powered content generation</p>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Input Form Section -->
+            <div class="input-section">
+                <div class="form-container">
+                    <h2>Your Information</h2>
+                    
+                    <!-- Personal Information -->
+                    <div class="form-group">
+                        <h3><i class="fas fa-user"></i> Personal Information</h3>
+                        <div class="input-row">
+                            <input type="text" id="fullName" placeholder="Full Name" required>
+                            <input type="email" id="email" placeholder="Email Address" required>
+                        </div>
+                        <div class="input-row">
+                            <input type="tel" id="phone" placeholder="Phone Number">
+                            <input type="text" id="location" placeholder="Location">
+                        </div>
+                        <input type="url" id="linkedin" placeholder="LinkedIn Profile (optional)">
+                        <input type="file" id="photoUpload" accept="image/*">
+                    </div>
+
+                    <!-- Professional Information -->
+                    <div class="form-group">
+                        <h3><i class="fas fa-briefcase"></i> Professional Information</h3>
+                        <input type="text" id="jobTitle" placeholder="Target Job Title" required>
+                        <input type="text" id="industry" placeholder="Industry" required>
+                        <input type="number" id="experience" placeholder="Years of Experience" min="0" max="50">
+                        
+                        <textarea id="workHistory" placeholder="Brief work history (company names, roles, key achievements)..." rows="4"></textarea>
+                        <textarea id="skills" placeholder="List your key skills (separated by commas)..." rows="3"></textarea>
+                        <textarea id="education" placeholder="Education background (degree, institution, year)..." rows="3"></textarea>
+                    </div>
+                    <!-- Languages -->
+<div class="form-group">
+  <label for="languages"><strong>Languages</strong></label>
+  <input type="text" id="languages" placeholder="e.g., English, Hindi, French">
+</div>
+
+<!-- Certifications -->
+<div class="form-group">
+  <label for="certifications"><strong>Certifications</strong></label>
+  <textarea id="certifications" placeholder="e.g., PMP, AWS Certified Solutions Architect"></textarea>
+</div>
+
+<!-- Projects -->
+<div class="form-group">
+  <label for="projects"><strong>Projects</strong></label>
+  <textarea id="projects" placeholder="e.g., AI Chatbot — Built an intelligent chatbot using Python and NLP.&#10;Weather App — Developed a real-time weather application with React."></textarea>
+</div>
+
+<!-- Workshops -->
+<div class="form-group">
+  <label for="workshops"><strong>Workshops</strong></label>
+  <textarea id="workshops" placeholder="e.g., Attended 'Advanced ML Workshop', Google, Jan 2024&#10;Organized 'Web Dev Bootcamp', College Fest, 2023"></textarea>
+</div>
+
+
+                    <!-- AI Enhancement Options -->
+                    <div class="form-group">
+                        <h3><i class="fas fa-magic"></i> AI Enhancement</h3>
+                        <select id="toneSelect">
+                            <option value="professional">Professional</option>
+                            <option value="creative">Creative</option>
+                            <option value="technical">Technical</option>
+                            <option value="executive">Executive</option>
+                        </select>
+                        <textarea id="additionalInfo" placeholder="Any additional information or specific requirements..." rows="3"></textarea>
+                    </div>
+
+                    <button id="generateBtn" class="generate-btn">
+                        <i class="fas fa-magic"></i> Generate AI Resume
+                    </button>
+                </div>
+            </div>
+            <!-- Add below the "Choose Template" heading -->
+<div class="form-group">
+    <h3><i class="fas fa-paint-brush"></i> Theme Color</h3>
+    <input type="color" id="themeColorPicker" value="#667eea">
+</div>
+
+
+<!-- Resume Preview Section -->
+            <div class="preview-section">
+                <div class="template-selector">
+                    <h3>Choose Template</h3>
+                    <div class="template-options">
+                        <button class="template-btn active" data-template="modern">
+                            <i class="fas fa-file-alt"></i> Modern
+                        </button>
+                        <button class="template-btn" data-template="classic">
+                            <i class="fas fa-file-text"></i> Classic
+                        </button>
+                        <button class="template-btn" data-template="creative">
+                            <i class="fas fa-palette"></i> Creative
+                        </button>
+                        <button class="template-btn" data-template="minimal">
+                            <i class="fas fa-file"></i> Minimal
+                        </button>
+                    </div>
+                </div>
+
+                <div class="resume-container">
+                    <div id="resumePreview" class="resume-preview modern-template">
+                        <div class="resume-placeholder">
+                            <i class="fas fa-file-alt"></i>
+                            <p>Your AI-generated resume will appear here</p>
+                            <p class="placeholder-subtitle">Fill in your information and click "Generate AI Resume"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="downloadBtn" class="action-btn" disabled>
+                        <i class="fas fa-download"></i> Download PDF
+                    </button>
+                    <button id="saveBtn" class="action-btn" disabled>
+                        <i class="fas fa-save"></i> Save Resume
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="loading-overlay">
+            <div class="loading-content">
+                <div class="spinner"></div>
+                <p>AI is crafting your perfect resume...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</body>
+</html>
